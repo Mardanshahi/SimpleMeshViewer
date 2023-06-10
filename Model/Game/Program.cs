@@ -18,7 +18,7 @@ internal static class Program
         gameSettings.UpdateFrequency = FPS;
         
         var uiSettings = NativeWindowSettings.Default;
-        uiSettings.APIVersion = Version.Parse("4.1.0");
+        uiSettings.APIVersion = Version.Parse("4.1");
         uiSettings.Size = new Vector2i(800,600);
         uiSettings.Title = "LearnOpenGL";
         uiSettings.NumberOfSamples = 4;
@@ -27,7 +27,8 @@ internal static class Program
         uiSettings.WindowBorder = WindowBorder.Resizable;
         uiSettings.IsEventDriven = false;
         uiSettings.StartFocused = true;
-    
+        uiSettings.Flags = ContextFlags.ForwardCompatible;
+        uiSettings.API = ContextAPI.OpenGL;
         #endregion
 
 
