@@ -1,6 +1,6 @@
 ﻿using System;
 using Assimp;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using PrimitiveType = OpenTK.Graphics.OpenGL4.PrimitiveType;
 
@@ -339,11 +339,11 @@ public class Model : VertexArray
 
         if (mesh.Indices != null && mesh.Indices.Length != 0)
         {
-            GL.DrawElements(renderMode,mesh.Indices.Length,DrawElementsType.UnsignedInt,0); return;
+            GL.DrawElements(BeginMode.Triangles,mesh.Indices.Length,DrawElementsType.UnsignedInt,0); return;
         }
         if (mesh.Vertices != null && mesh.Vertices.Length != 0)
         {
-            GL.DrawArrays(renderMode,0,mesh.Vertices.Length/3); return;
+            GL.DrawArrays(BeginMode.Triangles, 0,mesh.Vertices.Length/3); return;
         }
 
         throw new Exception("Invalid Mesh");

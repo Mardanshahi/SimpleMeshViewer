@@ -1,6 +1,6 @@
 ﻿using System;
-using OpenTK.Graphics.OpenGL4;
-using ErrorCode = OpenTK.Graphics.OpenGL4.ErrorCode;
+using OpenTK.Graphics.OpenGL;
+using ErrorCode = OpenTK.Graphics.OpenGL.ErrorCode;
 
 namespace Library;
 

@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using StbImageSharp;
 
 namespace Library;

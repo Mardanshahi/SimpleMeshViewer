@@ -1,6 +1,6 @@
 ﻿using Assimp;
 using Library;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 
@@ -22,6 +22,47 @@ public class Game1 : Library.Game
     {
         GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
+        var isCur = Window.Context.IsCurrent;
+
+        var major = GL.GetInteger(GetPName.MajorVersion);
+        var minor = GL.GetInteger(GetPName.MinorVersion);
+        var APIVersion = Convert.ToDouble($"{GL.GetInteger(GetPName.MajorVersion)}{GL.GetInteger(GetPName.MinorVersion)}") / 10.0;
+
+        string version_string = GL.GetString(StringName.Version);
+        var version_parts = version_string.Split('.');
+        int majorr = int.Parse(version_parts[0]);
+
+        string vendor_string = GL.GetString(StringName.Vendor);
+        string renderer_string = GL.GetString(StringName.ShadingLanguageVersion);
+
+        GL.GetInteger(GetPName.MaxTextureImageUnits, out var maxTextures);
+        GL.GetInteger(GetPName.MaxVertexTextureImageUnits, out var maxVertexTextures);
+        GL.GetInteger(GetPName.MaxTextureSize, out var maxTextureSize);
+        GL.GetInteger(GetPName.MaxCubeMapTextureSize, out var maxCubemapSize);
+        GL.GetInteger(GetPName.MaxVertexAttribs, out var maxAttributes);
+        GL.GetInteger(GetPName.MaxVertexUniformVectors, out var maxVertexUniforms);
+        GL.GetInteger(GetPName.MaxVaryingVectors, out var maxVaryings);
+        GL.GetInteger(GetPName.MaxFragmentUniformVectors, out var maxFragmentUniforms);
+
+
+
+        var error = GL.GetError();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         shader = new ShaderProgram(
             ShaderLocation + "vertex.glsl", 
             ShaderLocation + "fragment.glsl",
@@ -39,7 +80,7 @@ public class Game1 : Library.Game
         
         // this method is not done in the best way so i will likely try and improve it in the future once i have used it more
         backpack = Model.FromFile(
-            "../../../../../../0 Assets/backpack/", "backpack.obj",
+            @"C:/Users/Masoud/3D Objects/final/", "box-uv2.obj",
             out var textures,
             shader.DefaultModel,
             new [] { TextureType.Diffuse, TextureType.Specular}
