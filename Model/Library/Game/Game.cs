@@ -2,10 +2,11 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using OpenTK.Windowing.Common;
-using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+//using OpenTK.Windowing.Desktop;
+//using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
+using OpenTK;
+//using OpenTK.Mathematics;
 
 namespace Library;
 

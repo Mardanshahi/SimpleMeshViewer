@@ -1,8 +1,8 @@
 ﻿using Assimp;
 using Library;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
+//using OpenTK.Mathematics;
+//using OpenTK.Windowing.Common;
 
 namespace ModelProj.Game;
 
@@ -28,8 +28,8 @@ public class Game1 : Library.Game
         true);
 
         player = new FirstPersonPlayer(shader.DefaultProjection, shader.DefaultView, Window.Size)
-            .SetPosition(new Vector3(0, 0, 3))
-            .SetDirection(new Vector3(0, 0, -1));
+            .SetPosition(new OpenTK.Vector3(0, 0, 3))
+            .SetDirection(new OpenTK.Vector3(0, 0, -1));
 
 
         light = new Objects.Light()
@@ -66,11 +66,11 @@ public class Game1 : Library.Game
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
         shader.SetActive(ShaderType.FragmentShader,"main");
-        backpack.Transform(Vector3.Zero, Vector3.Zero, 1f);
+        backpack.Transform(OpenTK.Vector3.Zero, OpenTK.Vector3.Zero, 1f);
         backpack.Draw();
         
         shader.SetActive(ShaderType.FragmentShader,"light");
-        cube.Transform(light.Position, Vector3.Zero, 0.2f);
+        cube.Transform(light.Position, OpenTK.Vector3.Zero, 0.2f);
         cube.Draw();
         
         Window.SwapBuffers();

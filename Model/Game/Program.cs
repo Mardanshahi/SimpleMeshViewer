@@ -1,6 +1,6 @@
-﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.Desktop;
+﻿using OpenTK;
+//using OpenTK.Windowing.Common;
+//using OpenTK.Windowing.Desktop;
 
 namespace ModelProj.Game;
 
@@ -18,8 +18,8 @@ internal static class Program
         gameSettings.UpdateFrequency = FPS;
         
         var uiSettings = NativeWindowSettings.Default;
-        uiSettings.APIVersion = Version.Parse("4.1");
-        uiSettings.Size = new Vector2i(800,600);
+        uiSettings.APIVersion = Version.Parse("3.3");
+        uiSettings.Size = new OpenTK.Vector2(800,600);
         uiSettings.Title = "LearnOpenGL";
         uiSettings.NumberOfSamples = 4;
 
@@ -33,8 +33,8 @@ internal static class Program
 
 
         using var game = new Game1();
-        game.InitWindow(gameSettings,uiSettings)
-            .CursorState = CursorState.Grabbed;
+        game.InitWindow(gameSettings, uiSettings);
+           // .CursorState = CursorState.Grabbed;
         game.Run();
     }
 }

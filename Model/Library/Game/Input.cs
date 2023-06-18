@@ -1,6 +1,6 @@
 ﻿using System;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.Mathematics;
+//using OpenTK.Windowing.GraphicsLibraryFramework;
+//using OpenTK.Mathematics;
 
 namespace Library;
 
@@ -13,7 +13,7 @@ public class Input
     /// </summary>
     /// <param name="keyboardState">the current state of the keyboard to check</param>
     /// <returns>a 3D vector representing the direction pressed</returns>
-    public static Vector3 DirectionWASD(KeyboardState keyboardState)
+    public static OpenTK.Vector3 DirectionWASD(KeyboardState keyboardState)
     {
         int forwards = (keyboardState.IsKeyDown(Keys.W)) ? 1 : 0;
         int backwards = (keyboardState.IsKeyDown(Keys.S)) ? 1 : 0;
@@ -23,6 +23,6 @@ public class Input
         float mult = 1f;
         // diagonal
         if (Math.Abs(right - left) + Math.Abs(forwards - backwards) > 1) mult = OneOverRoot2;
-        return new Vector3(right-left,0,forwards-backwards) * mult;
+        return new OpenTK.Vector3(right-left,0,forwards-backwards) * mult;
     }
 }

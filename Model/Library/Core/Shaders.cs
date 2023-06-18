@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
+//using OpenTK.Mathematics;
 using static Library.Objects;
 
 namespace Library;
@@ -479,7 +479,7 @@ public class ShaderProgram
     /// <param name="name">the uniform variable's name</param>
     /// <param name="vector">vector value</param>
     /// <returns>current object for ease of use</returns>
-    public ShaderProgram Uniform2(string name, Vector2 vector) { GL.Uniform2(GetUniform(name), vector); return this; }
+    public ShaderProgram Uniform2(string name, OpenTK.Vector2 vector) { GL.Uniform2(GetUniform(name), vector); return this; }
     /// <summary>
     /// Set a 2d uniform variable's value on the gpu (vec2)
     /// </summary>
@@ -523,7 +523,7 @@ public class ShaderProgram
     /// <param name="name">the uniform variable's name</param>
     /// <param name="vector">vector value</param>
     /// <returns>current object for ease of use</returns>
-    public ShaderProgram Uniform3(string name, Vector3 vector) { GL.Uniform3(GetUniform(name), vector); return this; }
+    public ShaderProgram Uniform3(string name, OpenTK.Vector3 vector) { GL.Uniform3(GetUniform(name), vector); return this; }
     /// <summary>
     /// Set a 3d uniform variable's value on the gpu (vec3)
     /// </summary>
@@ -571,7 +571,7 @@ public class ShaderProgram
     /// <param name="name">the uniform variable's name</param>
     /// <param name="vector">vector value</param>
     /// <returns>current object for ease of use</returns>
-    public ShaderProgram Uniform4(string name, Vector4 vector) { GL.Uniform4(GetUniform(name), vector); return this; }
+    public ShaderProgram Uniform4(string name, OpenTK.Vector4 vector) { GL.Uniform4(GetUniform(name), vector); return this; }
     /// <summary>
     /// Set a 4d uniform variable's value on the gpu (vec4)
     /// </summary>
@@ -766,11 +766,11 @@ public class ShaderProgram
         
         #region vectors
         // Uniform 2
-        if (t == typeof(Vector2)) { GL.Uniform2(uniformId,(Vector2)value); return;}
+        if (t == typeof(OpenTK.Vector2)) { GL.Uniform2(uniformId,(OpenTK.Vector2)value); return;}
         // Uniform 3
-        if (t == typeof(Vector3)) { GL.Uniform3(uniformId,(Vector3)value); return;}
+        if (t == typeof(OpenTK.Vector3)) { GL.Uniform3(uniformId,(OpenTK.Vector3)value); return;}
         // Uniform 4
-        if (t == typeof(Vector4)) { GL.Uniform4(uniformId,(Vector4)value); return;}
+        if (t == typeof(OpenTK.Vector4)) { GL.Uniform4(uniformId,(OpenTK.Vector4)value); return;}
         #endregion
 
         throw new Exception("Invalid synced uniform type");

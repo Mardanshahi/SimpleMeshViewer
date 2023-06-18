@@ -1,7 +1,7 @@
 ﻿using System;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+//using OpenTK.Mathematics;
+//using OpenTK.Windowing.Common;
+//using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Library;
 
@@ -10,7 +10,7 @@ namespace Library;
 /// </summary>
 public abstract class Player
 {
-    public Vector3 Position;
+    public OpenTK.Vector3 Position;
     public Camera Camera;
     
     /// <summary>
@@ -20,7 +20,7 @@ public abstract class Player
     /// <param name="viewBinding">the uniform location of the view matrix</param>
     /// <param name="windowSize">the screen's size</param>
     /// <param name="fov">the camera's field of view in radians</param>
-    public Player(int projectionBinding, int viewBinding, Vector2i windowSize, float fov = MathHelper.PiOver3)
+    public Player(int projectionBinding, int viewBinding, System.Numerics.Vector2 windowSize, float fov = OpenTK.MathHelper.PiOver3)
     {
         Camera = new Camera(projectionBinding, viewBinding, windowSize, fov);
     }    
@@ -32,7 +32,7 @@ public abstract class Player
     /// <param name="viewBinding">the uniform location of the view matrix</param>
     /// <param name="aspectRatio">the screen's aspect ratio</param>
     /// <param name="fov">the camera's field of view in radians</param>
-    public Player(int projectionBinding, int viewBinding, float aspectRatio, float fov = MathHelper.PiOver3)
+    public Player(int projectionBinding, int viewBinding, float aspectRatio, float fov = OpenTK.MathHelper.PiOver3)
     {
         Camera = new Camera(projectionBinding, viewBinding, aspectRatio, fov);
     }    
@@ -63,12 +63,12 @@ public abstract class Player
 
 public class FirstPersonPlayer : Player
 {
-    public Vector3 Velocity;
+    public OpenTK.Vector3 Velocity;
     public float Sensitivity;
     public float Speed;
 
-    private Vector3 unitGravity = -Vector3.UnitY;
-    public void SetGravity(Vector3 direction) => unitGravity = direction;
+    private OpenTK.Vector3 unitGravity = -OpenTK.Vector3.UnitY;
+    public void SetGravity(OpenTK.Vector3 direction) => unitGravity = direction;
 
     /// <summary>
     /// Create first person player with [wasd + space/ctrl] controls
@@ -79,7 +79,7 @@ public class FirstPersonPlayer : Player
     /// <param name="fov">the camera's field of view in radians</param>
     /// <param name="sensitivity">the mouse sensitivity</param>
     /// <param name="speed">player's speed</param>
-    public FirstPersonPlayer(int projectionBinding, int viewBinding, Vector2i windowSize, float fov = MathHelper.PiOver3, float sensitivity = 1/20f, float speed = 5f)
+    public FirstPersonPlayer(int projectionBinding, int viewBinding, System.Numerics.Vector2 windowSize, float fov = OpenTK.MathHelper.PiOver3, float sensitivity = 1/20f, float speed = 5f)
         : base(projectionBinding,viewBinding,windowSize,fov)
     {
         Sensitivity = sensitivity;
@@ -91,7 +91,7 @@ public class FirstPersonPlayer : Player
     /// </summary>
     /// <param name="position">new player position</param>
     /// <returns>current object for ease of use</returns>
-    public FirstPersonPlayer SetPosition(Vector3 position)
+    public FirstPersonPlayer SetPosition(OpenTK.Vector3 position)
     {
         Position = position;
         return this;
@@ -102,15 +102,15 @@ public class FirstPersonPlayer : Player
     /// </summary>
     /// <param name="direction">new camera direction</param>
     /// <returns>current object for ease of use</returns>
-    public FirstPersonPlayer SetDirection(Vector3 direction)
+    public FirstPersonPlayer SetDirection(OpenTK.Vector3 direction)
     {
         Direction = direction;
         return this;
     }
 
-    private readonly Matrix3 rightTransform = Matrix3.CreateRotationY(MathHelper.PiOver2);
+    private readonly OpenTK.Matrix3 rightTransform = OpenTK.Matrix3.CreateRotationY(OpenTK.MathHelper.PiOver2);
 
-    private Vector2 lastMousePos;
+    private OpenTK.Vector2 lastMousePos;
     private float yaw;
     private float pitch;
 
@@ -122,7 +122,7 @@ public class FirstPersonPlayer : Player
     /// <param name="args">args from the window's update function</param>
     /// <param name="keyboardState">the keyboard state to check inputs from</param>
     /// <param name="relativeMousePos">the relative mouse pos from the last call of SetMouseOrigin()</param>
-    public void Update(FrameEventArgs args, KeyboardState keyboardState, Vector2 relativeMousePos)
+    public void Update(FrameEventArgs args, KeyboardState keyboardState, OpenTK.Vector2 relativeMousePos)
     {
         var input = Input.DirectionWASD(keyboardState) * Speed * (float)args.Time;
         yaw += (relativeMousePos.X - lastMousePos.X) * Sensitivity;
@@ -134,11 +134,11 @@ public class FirstPersonPlayer : Player
         // 90 degrees gives gimbal locking so lock to 89
         if (capPitch) pitch = Math.Clamp(pitch, -89f, 89f);
 
-        Camera.Direction = Matrix3.CreateRotationY(MathHelper.DegreesToRadians(yaw)) * Matrix3.CreateRotationX(MathHelper.DegreesToRadians(pitch)) * -Vector3.UnitZ;
-        
-        Vector3 up = ((keyboardState.IsKeyDown(Keys.Space) ?1:0) - (keyboardState.IsKeyDown(Keys.LeftControl) ?1:0)) * Speed * (float)args.Time * Vector3.UnitY;
-        
-        Vector3 directionFlat = Camera.Direction;
+        Camera.Direction = OpenTK.Matrix3.CreateRotationY(OpenTK.MathHelper.DegreesToRadians(yaw)) * OpenTK.Matrix3.CreateRotationX(OpenTK.MathHelper.DegreesToRadians(pitch)) * -OpenTK.Vector3.UnitZ;
+
+        OpenTK.Vector3 up = ((keyboardState.IsKeyDown(Keys.Space) ?1:0) - (keyboardState.IsKeyDown(Keys.LeftControl) ?1:0)) * Speed * (float)args.Time * OpenTK.Vector3.UnitY;
+
+        OpenTK.Vector3 directionFlat = Camera.Direction;
         directionFlat.Y = 0;
         directionFlat.Normalize();
 
@@ -154,7 +154,7 @@ public class FirstPersonPlayer : Player
     /// <summary>
     /// Direction handled in the player's camera
     /// </summary>
-    public Vector3 Direction
+    public OpenTK.Vector3 Direction
     {
         get => Camera.Direction;
         set => Camera.Direction=value;

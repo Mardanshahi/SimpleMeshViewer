@@ -1,7 +1,7 @@
 ﻿using System;
 using Assimp;
 using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
+//using OpenTK.Mathematics;
 using PrimitiveType = OpenTK.Graphics.OpenGL4.PrimitiveType;
 
 namespace Library;
@@ -16,7 +16,7 @@ public class Model : VertexArray
     private Objects.Mesh mesh;
 
     private int uTransform;
-    private Matrix4 transform = Matrix4.Identity;
+    private OpenTK.Matrix4 transform = OpenTK.Matrix4.Identity;
 
     public float[]? GetVertices => mesh.Vertices;
     public float[]? GetTexCoords => mesh.TexCoords;
@@ -264,7 +264,7 @@ public class Model : VertexArray
     /// <summary>
     /// Load the transformation matrix onto the GPU
     /// </summary>
-    public void UpdateTransformation(Matrix4 transformation)
+    public void UpdateTransformation(OpenTK.Matrix4 transformation)
     {
         GL.UniformMatrix4(uTransform,false,ref transformation);
     }
@@ -275,7 +275,7 @@ public class Model : VertexArray
     /// <param name="translation">position relative to the origin</param>
     /// <param name="rotation">rotation in the x,y and z axis</param>
     /// <param name="scale">scale in x,y and z</param>
-    public Model Transform(Vector3 translation, Vector3 rotation, Vector3 scale)
+    public Model Transform(OpenTK.Vector3 translation, OpenTK.Vector3 rotation, OpenTK.Vector3 scale)
     {
         transform = Maths.CreateTransformation(translation, rotation, scale);
         UpdateTransformation(transform);
@@ -288,9 +288,9 @@ public class Model : VertexArray
     /// <param name="translation">position relative to the origin</param>
     /// <param name="rotation">rotation in the x,y and z axis</param>
     /// <param name="scale">scale of the overall object in all 3 dimensions</param>
-    public Model Transform(Vector3 translation, Vector3 rotation, float scale)
+    public Model Transform(OpenTK.Vector3 translation, OpenTK.Vector3 rotation, float scale)
     {
-        transform = Maths.CreateTransformation(translation, rotation, new Vector3(scale,scale,scale));
+        transform = Maths.CreateTransformation(translation, rotation, new OpenTK.Vector3(scale,scale,scale));
         UpdateTransformation(transform);
         return this;
     }
@@ -301,9 +301,9 @@ public class Model : VertexArray
     /// Multiply the current object's scale by this value and load the model matrix to the gpu
     /// </summary>
     /// <param name="scale">scale in x,y and z</param>
-    public void Scale(Vector3 scale)
+    public void Scale(OpenTK.Vector3 scale)
     {
-        transform = Matrix4.CreateScale(scale) * transform;
+        transform = OpenTK.Matrix4.CreateScale(scale) * transform;
         UpdateTransformation(transform);
     }
 
@@ -313,7 +313,7 @@ public class Model : VertexArray
     /// <param name="scale">scale of the overall object in all 3 dimensions</param>
     public void Scale(float scale)
     {
-        transform = Matrix4.CreateScale(scale,scale,scale) * transform;
+        transform = OpenTK.Matrix4.CreateScale(scale,scale,scale) * transform;
         UpdateTransformation(transform);
     }
 
@@ -323,7 +323,7 @@ public class Model : VertexArray
     /// </summary>
     public Model ResetTransform()
     {
-        transform = Matrix4.Identity;
+        transform = OpenTK.Matrix4.Identity;
         UpdateTransformation(transform);
         return this;
     }

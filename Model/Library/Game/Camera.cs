@@ -1,5 +1,5 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using OpenTK.Mathematics;
+//using OpenTK.Mathematics;
 
 namespace Library;
 
@@ -12,16 +12,16 @@ public class Camera
     private float depthFar;
 
     // camera vars
-    public Vector3 Position;
-    public Vector3 Direction;
-    private readonly Vector3 up = Vector3.UnitY;
+    public OpenTK.Vector3 Position;
+    public OpenTK.Vector3 Direction;
+    private readonly OpenTK.Vector3 up = OpenTK.Vector3.UnitY;
 
     // OpenGL
     private int uProj;
     private int uView;
 
-    private Matrix4 proj;
-    private Matrix4 view;
+    private OpenTK.Matrix4 proj;
+    private OpenTK.Matrix4 view;
 
     /// <summary>
     /// Create a new camera object for handling 3D projection
@@ -32,7 +32,7 @@ public class Camera
     /// <param name="fieldOfView">the camera's field of view</param>
     /// <param name="clipNear">the closest distance to render</param>
     /// <param name="clipFar">the furthest distance to render</param>
-    public Camera(int projectionBinding, int viewBinding, float aspectRatio, float fieldOfView = MathHelper.PiOver3,float clipNear = 0.1f, float clipFar = 100f)
+    public Camera(int projectionBinding, int viewBinding, float aspectRatio, float fieldOfView = OpenTK.MathHelper.PiOver3,float clipNear = 0.1f, float clipFar = 100f)
     {
         aspect = aspectRatio;
         fov = fieldOfView;
@@ -55,7 +55,7 @@ public class Camera
     /// <param name="fieldOfView">the camera's field of view in radians</param>
     /// <param name="clipNear">the closest distance to render</param>
     /// <param name="clipFar">the furthest distance to render</param>
-    public Camera(int projectionBinding, int viewBinding, Vector2i windowSize, float fieldOfView = MathHelper.PiOver3, float clipNear = 0.1f, float clipFar = 100f):this(projectionBinding,viewBinding,(float)windowSize.X/windowSize.Y,fieldOfView,clipNear,clipFar) { }
+    public Camera(int projectionBinding, int viewBinding, OpenTK.Vector2 windowSize, float fieldOfView = OpenTK.MathHelper.PiOver3, float clipNear = 0.1f, float clipFar = 100f):this(projectionBinding,viewBinding,(float)windowSize.X/windowSize.Y,fieldOfView,clipNear,clipFar) { }
     
 
     /// <summary>
@@ -63,7 +63,7 @@ public class Camera
     /// </summary>
     public void UpdateProjection()
     {
-        proj = Matrix4.CreatePerspectiveFieldOfView(fov, aspect, depthNear, depthFar);
+        proj = OpenTK.Matrix4.CreatePerspectiveFieldOfView(fov, aspect, depthNear, depthFar);
         GL.UniformMatrix4(uProj,false,ref proj);
     }
 
@@ -81,7 +81,7 @@ public class Camera
     /// Update matrices according to a new screen size
     /// </summary>
     /// <param name="newSize">the new size of the screen</param>
-    public void Resize(Vector2i newSize)
+    public void Resize(OpenTK.Vector2 newSize)
     {
         Resize((float)newSize.X / newSize.Y);
     }
@@ -114,7 +114,7 @@ public class Camera
     /// <param name="flipCamera">if ture, the camera will be upside down</param>
     public void UpdateView(bool flipCamera = false)
     {
-        view = Matrix4.LookAt(Position, Position + Direction, ((flipCamera)?-1:1) * up);
+        view = OpenTK.Matrix4.LookAt(Position, Position + Direction, ((flipCamera)?-1:1) * up);
         GL.UniformMatrix4(uView,false,ref view);
     }
 

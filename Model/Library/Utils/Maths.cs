@@ -1,5 +1,5 @@
 ﻿using System;
-using OpenTK.Mathematics;
+//using OpenTK.Mathematics;
 
 namespace Library;
 
@@ -12,12 +12,12 @@ public class Maths
     /// <param name="rotate">the rotation of the transform (in radians)</param>
     /// <param name="scale">the scale of the transform</param>
     /// <returns></returns>
-    public static Matrix4 CreateTransformation(Vector3 translate, Vector3 rotate, Vector3 scale)
+    public static OpenTK.Matrix4 CreateTransformation(OpenTK.Vector3 translate, OpenTK.Vector3 rotate, OpenTK.Vector3 scale)
     {
-        Vector3 sin = new Vector3(MathF.Sin(rotate.X), MathF.Sin(rotate.Y), MathF.Sin(rotate.Z));
-        Vector3 cos = new Vector3(MathF.Cos(rotate.X), MathF.Cos(rotate.Y), MathF.Cos(rotate.Z));
+        OpenTK.Vector3 sin = new OpenTK.Vector3(MathF.Sin(rotate.X), MathF.Sin(rotate.Y), MathF.Sin(rotate.Z));
+        OpenTK.Vector3 cos = new OpenTK.Vector3(MathF.Cos(rotate.X), MathF.Cos(rotate.Y), MathF.Cos(rotate.Z));
 
-        Matrix4 result;
+        OpenTK.Matrix4 result;
         
         result.Row0.X = scale.X * cos.Y * cos.Z;
         result.Row0.Y = scale.X * cos.Y * sin.Z;
@@ -39,10 +39,10 @@ public class Maths
         return result;
     }
 
-    public static Matrix4 TranslateMatrix(float x, float y, float z)
+    public static OpenTK.Matrix4 TranslateMatrix(float x, float y, float z)
     {
-        Matrix4 result = Matrix4.Identity;
-        result.Row3 = new Vector4(x,y,z, 1f);
+        OpenTK.Matrix4 result = OpenTK.Matrix4.Identity;
+        result.Row3 = new OpenTK.Vector4(x,y,z, 1f);
         return result;
     }
 }
