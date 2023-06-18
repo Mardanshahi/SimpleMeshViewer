@@ -70,11 +70,16 @@ public class Game1 : GameWindow
     {
         player.Camera.Resize(Width / (float)Height);
 
+        GL.Viewport(0,0, Width, Height);
+        
         base.OnResize(e);
     }
 
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
+        KeyboardState input = Keyboard.GetState();
+        if (input.IsKeyDown(Key.Escape))
+            Exit();
         player.Update(args, Keyboard.GetState(), relativeMousePosition);
         shader.Uniform3("cameraPos", player.Camera.Position);
     }
