@@ -13,6 +13,7 @@ namespace Library;
 
 public abstract class Game : GameWindow
 {
+
     public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title, GameWindowFlags.Default, DisplayDevice.Default, 3, 3, GraphicsContextFlags.Debug)
     {
         //new Debug();

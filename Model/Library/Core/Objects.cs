@@ -1,5 +1,7 @@
 ﻿//using OpenTK.Mathematics;
 
+using System;
+
 namespace Library;
 
 public static class Objects

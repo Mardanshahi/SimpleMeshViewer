@@ -22,9 +22,9 @@ public abstract class Player
     /// <param name="viewBinding">the uniform location of the view matrix</param>
     /// <param name="windowSize">the screen's size</param>
     /// <param name="fov">the camera's field of view in radians</param>
-    public Player(int projectionBinding, int viewBinding, System.Numerics.Vector2 windowSize, float fov = OpenTK.MathHelper.PiOver3)
+    public Player(int projectionBinding, int viewBinding, System.Drawing.Size windowSize, float fov = OpenTK.MathHelper.PiOver3)
     {
-        Camera = new Camera(projectionBinding, viewBinding, windowSize, fov);
+        Camera = new Camera(projectionBinding, viewBinding, fov);
     }    
     
     /// <summary>
@@ -81,8 +81,8 @@ public class FirstPersonPlayer : Player
     /// <param name="fov">the camera's field of view in radians</param>
     /// <param name="sensitivity">the mouse sensitivity</param>
     /// <param name="speed">player's speed</param>
-    public FirstPersonPlayer(int projectionBinding, int viewBinding, System.Numerics.Vector2 windowSize, float fov = OpenTK.MathHelper.PiOver3, float sensitivity = 1/20f, float speed = 5f)
-        : base(projectionBinding,viewBinding,windowSize,fov)
+    public FirstPersonPlayer(int projectionBinding, int viewBinding, float fov = OpenTK.MathHelper.PiOver3, float sensitivity = 1/20f, float speed = 5f)
+        : base(projectionBinding,viewBinding,fov)
     {
         Sensitivity = sensitivity;
         Speed = speed;
