@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK.Input;
+using System;
 //using OpenTK.Windowing.GraphicsLibraryFramework;
 //using OpenTK.Mathematics;
 
@@ -15,10 +16,10 @@ public class Input
     /// <returns>a 3D vector representing the direction pressed</returns>
     public static OpenTK.Vector3 DirectionWASD(KeyboardState keyboardState)
     {
-        int forwards = (keyboardState.IsKeyDown(Keys.W)) ? 1 : 0;
-        int backwards = (keyboardState.IsKeyDown(Keys.S)) ? 1 : 0;
-        int left = (keyboardState.IsKeyDown(Keys.A)) ? 1 : 0;
-        int right = (keyboardState.IsKeyDown(Keys.D)) ? 1 : 0;
+        int forwards = (keyboardState.IsKeyDown(Key.W)) ? 1 : 0;
+        int backwards = (keyboardState.IsKeyDown(Key.S)) ? 1 : 0;
+        int left = (keyboardState.IsKeyDown(Key.A)) ? 1 : 0;
+        int right = (keyboardState.IsKeyDown(Key.D)) ? 1 : 0;
 
         float mult = 1f;
         // diagonal

@@ -32,7 +32,7 @@ public class Camera
     /// <param name="fieldOfView">the camera's field of view</param>
     /// <param name="clipNear">the closest distance to render</param>
     /// <param name="clipFar">the furthest distance to render</param>
-    public Camera(int projectionBinding, int viewBinding, float aspectRatio, float fieldOfView = OpenTK.MathHelper.PiOver3,float clipNear = 0.1f, float clipFar = 100f)
+    public Camera(int projectionBinding, int viewBinding, float aspectRatio, float fieldOfView = OpenTK.MathHelper.PiOver3, float clipNear = 0.1f, float clipFar = 100f)
     {
         aspect = aspectRatio;
         fov = fieldOfView;

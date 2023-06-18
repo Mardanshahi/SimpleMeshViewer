@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenTK;
+using OpenTK.Input;
+using System;
 //using OpenTK.Mathematics;
 //using OpenTK.Windowing.Common;
 //using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -136,7 +138,7 @@ public class FirstPersonPlayer : Player
 
         Camera.Direction = OpenTK.Matrix3.CreateRotationY(OpenTK.MathHelper.DegreesToRadians(yaw)) * OpenTK.Matrix3.CreateRotationX(OpenTK.MathHelper.DegreesToRadians(pitch)) * -OpenTK.Vector3.UnitZ;
 
-        OpenTK.Vector3 up = ((keyboardState.IsKeyDown(Keys.Space) ?1:0) - (keyboardState.IsKeyDown(Keys.LeftControl) ?1:0)) * Speed * (float)args.Time * OpenTK.Vector3.UnitY;
+        OpenTK.Vector3 up = ((keyboardState.IsKeyDown(Key.Space) ?1:0) - (keyboardState.IsKeyDown(Key.LControl) ?1:0)) * Speed * (float)args.Time * OpenTK.Vector3.UnitY;
 
         OpenTK.Vector3 directionFlat = Camera.Direction;
         directionFlat.Y = 0;

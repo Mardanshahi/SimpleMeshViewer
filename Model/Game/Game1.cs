@@ -1,12 +1,15 @@
 ﻿using Assimp;
 using Library;
+using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using System.Diagnostics;
 //using OpenTK.Mathematics;
 //using OpenTK.Windowing.Common;
 
 namespace ModelProj.Game;
 
-public class Game1 : Library.Game
+public class Game1 : GameWindow
 {
     const string ShaderLocation = "../../../Game/Shaders/";
     ShaderProgram shader;
@@ -18,7 +21,11 @@ public class Game1 : Library.Game
     Objects.Light light;
     Objects.Material material;
 
-    protected override void Load()
+    public Game1(int width, int height, string title) : base(width, height, GraphicsMode.Default, title, GameWindowFlags.Default, DisplayDevice.Default, 3, 3, GraphicsContextFlags.Debug)
+    {
+        //new Debug();
+    }
+    protected override void OnLoad(EventArgs e)
     {
         GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
@@ -54,13 +61,13 @@ public class Game1 : Library.Game
         Window.Resize += newWin => player.Camera.Resize(newWin.Size);
     }
 
-    protected override void UpdateFrame(FrameEventArgs args)
+    protected override void OnUpdateFrame(FrameEventArgs args)
     {
         player.Update(args,Window.KeyboardState,GetRelativeMouse());
         shader.Uniform3("cameraPos", player.Camera.Position);
     }
 
-    protected override void RenderFrame(FrameEventArgs args)
+    protected override void OnRenderFrame(FrameEventArgs args)
     {
         GL.Enable(EnableCap.DepthTest);
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -72,11 +79,11 @@ public class Game1 : Library.Game
         shader.SetActive(ShaderType.FragmentShader,"light");
         cube.Transform(light.Position, OpenTK.Vector3.Zero, 0.2f);
         cube.Draw();
-        
-        Window.SwapBuffers();
+
+        Context.SwapBuffers();
     }
 
-    protected override void Unload()
+    protected override void OnUnload(EventArgs e)
     {
         GL.BindVertexArray(0);
         GL.UseProgram(0);
