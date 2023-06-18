@@ -39,7 +39,7 @@ public class Game1 : Library.Game
         
         // this method is not done in the best way so i will likely try and improve it in the future once i have used it more
         backpack = Model.FromFile(
-            "../../../../../../0 Assets/backpack/", "backpack.obj",
+            "../../../../Assets/Oricube1/", "box-uv2.obj",
             out var textures,
             shader.DefaultModel,
             new [] { TextureType.Diffuse, TextureType.Specular}
