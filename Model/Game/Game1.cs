@@ -1,6 +1,6 @@
 ﻿using Assimp;
 using Library;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 
@@ -23,9 +23,9 @@ public class Game1 : Library.Game
         GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
         shader = new ShaderProgram(
-            ShaderLocation + "vertex.glsl", 
-            ShaderLocation + "fragment.glsl",
-            true);
+        ShaderLocation + "vertex.glsl", 
+        ShaderLocation + "fragment.glsl",
+        true);
 
         player = new FirstPersonPlayer(shader.DefaultProjection, shader.DefaultView, Window.Size)
             .SetPosition(new Vector3(0, 0, 3))
