@@ -19,6 +19,7 @@ public class Game1 : GameWindow
     FirstPersonPlayer player;
     Model backpack;
     Model cube;
+    Model viewCube;
 
     Objects.Light light;
     Objects.Material material;
@@ -62,6 +63,10 @@ public class Game1 : GameWindow
 
         cube = new Model(PresetMesh.Cube, shader.DefaultModel);
 
+
+        viewCube = backpack;
+
+
         // attach player functions to window
         //Window.Resize += newWin => player.Camera.Resize(newWin.Size);
     }
@@ -89,13 +94,27 @@ public class Game1 : GameWindow
         GL.Enable(EnableCap.DepthTest);
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
+        GL.Viewport(0 , 0, Width , Height);
+
         shader.SetActive(ShaderType.FragmentShader, "main");
         backpack.Transform(OpenTK.Vector3.Zero, OpenTK.Vector3.Zero, 1f);
+
         backpack.Draw();
 
         shader.SetActive(ShaderType.FragmentShader, "light");
         cube.Transform(light.Position, OpenTK.Vector3.Zero, 0.2f);
         cube.Draw();
+
+
+        // viewcube
+        shader.SetActive(ShaderType.FragmentShader, "main");
+
+        GL.Clear(ClearBufferMask.DepthBufferBit);
+        GL.Viewport(3 * Width / 4, 0, Width / 4, Height / 4);
+
+        viewCube.Transform(OpenTK.Vector3.Zero, OpenTK.Vector3.Zero, 1f);
+        viewCube.Draw();
+
 
         Context.SwapBuffers();
     }
